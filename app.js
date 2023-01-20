@@ -4,7 +4,7 @@ let firstname = document.querySelector("#firstname");
 let lastname = document.querySelector("#lastname");
 let age = document.querySelector("#age");
 let dob = document.querySelector("#dob");
-let tableDiv = document.querySelector('#students');
+let tableDiv = document.getElementById('tableData');
 
 let BASE_URL = 'http://localhost:3000';
 
@@ -33,7 +33,8 @@ function postData(data){
 				'Content-Type': 'application/json'
 			}
 		}).then(res => res.json()).then(data => {
-			console.log({status: "success", data: JSON.stringify(data)})
+			alert('Data inserted successfully');
+			console.log({status: "success", data: JSON.stringify(data)});
 			getDataAndShowInTable()
 		})
 	} catch (err) {
@@ -48,69 +49,17 @@ function getDataAndShowInTable(){
 	let result = fetch(`${BASE_URL}`).then(res => res.json()).then(data => {
 		let html = '';
 		data.forEach(item => {
-			html += `
-			<tr>
+			html += `<tr>
 			<td>${item.id}</td>
 			<td>${item.firstname}</td>
 			<td>${item.lastname}</td>
 			<td>${item.age}</td>
 			<td>${item.dob}</td>
-			</tr>
-			`
-
-		})
-		
+			</tr>	`
+		})		
 		tableDiv.innerHTML = html;
 	})
 
 }
 
 getDataAndShowInTable();
-
-// api url
-// const api_url ="http://localhost:3000/select";
-// btn.addEventListener("click",(e)=>{
-// 	e.preventDefault();
-//     console.log(username);
-//     getapi(api_url);
-// });
-
-
-
-// // Defining async function
-// async function getapi(api_url) {	
-// 	// Storing response
-// 	const response = await fetch(api_url);
-// 	// Storing data in form of JSON
-// 	var data = await response.json();
-// 	console.log(data);
-// 	if (!response) {
-// 		hideloader();
-// 	}
-// 	show(data);
-// }
-
-// // Function to define innerHTML for HTML table
-// function show(data) {
-// 	let tab =
-// 		`<tr>
-// 		<th>id</th>
-// 		<th>firstname</th>
-// 		<th>secondname</th>
-// 		<th>age</th>
-//         <th>dob</th>
-// 		</tr>`;
-	
-// 	// Loop to access all rows
-// 	for (let r of data.list) {
-// 		tab += `<tr>
-// 	<td>${r.id} </td>
-// 	<td>${r.firstname}</td>
-// 	<td>${r.secondname}</td>
-// 	<td>${r.age}</td>
-//     <td>${r.dob}</td>d		
-//     </tr>`;
-// 	}
-// 	// Setting innerHTML as tab variable
-// 	document.getElementById("students").innerHTML = tab;
-// }

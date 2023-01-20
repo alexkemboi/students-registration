@@ -11,7 +11,7 @@
 <body>
     <div >      
         <form class="crudcontainer">
-            <h2>CRUD App</h2>  
+            <h2>Student Registration</h2>  
             <label for="id">Id</label>
             <input type="text" id="id"></br>
 
@@ -34,7 +34,8 @@
 
          <!-- table for showing data -->
          <table id="students" border="1">
-            <h2 class="tableTitle">Registered Students</h2>
+            <h2 class="tableTitle">Registered Students</h2>            
+           <thead>
             <tr>
                 <th>id</th>
                 <th>firstname</th>
@@ -42,10 +43,11 @@
                 <th>age</th>
                 <th>dob</th>
             </tr>
-           <div id="tableData">
-           
+            </thead>
+            <tbody id="tableData">
 
-           </div>
+            </tbody>
+        </div>
         </table>
     </div>    
     <script src="app.js"></script>
