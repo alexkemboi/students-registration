@@ -1,3 +1,4 @@
+/* 
 .crudcontainer{
     box-shadow: 0 15px 30px 1px grey;
 	background: rgba(255, 255, 255, 0.90);
@@ -10,34 +11,13 @@
     align-items: center;
     width:60%;
     margin: auto;
-}
+} */
 
-.crudcontainer label {
-    color:#1BBA93;
-    font-size: 17px;
-    font-weight: bold;
-  }
-.crudcontainer input {
-    width:250px;
-    font-size: 17px;
-    box-sizing: border-box;
-    height: 34px;
-    padding: 10px;
-    color: #333333;
-    text-align: left;
-    border: 1px solid green;
-    border-radius: 4px;
-    background: white;
-    outline: none;
-}
-.crudcontainer button{
-    margin: 40px;
-}
 
 
 table {
-    margin: 0 auto 5rem auto ;
-    width: 60%;
+    margin: 0 auto 0 auto ;
+    width: 80%;
     border: 2px solid black;
     text-align: center;
 }
@@ -52,3 +32,32 @@ table {
     justify-content: center;
     padding: 10px;
 }
+.navbar{
+    background-color: aquamarine;
+}
+form{
+    padding: 5px;
+}
+input{
+   width: 20%;
+   padding: 10px;
+   margin: 10px;
+   display: flex;
+   justify-content: space-between;
+}
+.btn-tertiary{
+    width: 20%;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+label{
+    font-style:italic;
+    font-size: medium;
+    color: blue;
+    padding: 10px;
+    margin: 5px;
+}
+
