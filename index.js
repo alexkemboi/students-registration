@@ -42,6 +42,17 @@ app.get("/createdb", (req, res) => {
     });
     });
 
+    //delete record
+    app.get("/delete", (req, res) => {
+      let sql ="DELETE FROM `studentdetails` WHERE id=1";
+      db.query(sql, (err) => {
+          if (err) {
+              throw err;
+          }    
+      res.send("Data deleted successfully");
+      });    
+      });
+  
 // Create table
 
 app.get("/createemployee", (req, res) => {
@@ -73,23 +84,9 @@ app.post("/", (req, res) => {
   }
 });
 
-// make to connection to the database.
-// app.get("/select",(req,res)=> {
-//     let sql = "SELECT * FROM students";
-//     if (err) throw err;
-//     // if connection is successful
-//     let query = db.query(sql, post, (err) => { 
-//         if (err) {
-//           throw err;
-//       }
-//       res.send("student details fetched");
-//       console.log(result);
-//     });
-// });
-
 
 // fetch all users
-app.get('/',(req, res)=> {
+app.get('/',(req, res)=> {  
     db.query('SELECT * FROM studentdetails', (err,rows)=> {
       if (err) {
        console.log(err);
@@ -99,6 +96,33 @@ app.get('/',(req, res)=> {
     })
   })
 
+
+  //search all users
+app.get('/search',(req, res)=> {
+  const fname = req.query.searchTerm;
+  console.log(fname);
+  db.query(`SELECT * FROM studentdetails WHERE firstname='${fname}'`, (err,rows)=> {
+    if (err) {
+     console.log(err);
+    } else {
+      res.status(200).send(rows);
+      console.log(rows);
+    }
+  })
+})
+
+app.delete('/delete', (req, res) => {
+  const {searchTerm} = req.query;
+  db.query(`DELETE FROM studentdetails WHERE firstname= '${searchTerm}'`, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error deleting search term from the database.");
+    } else {
+      console.log(`Search term ${searchTerm} deleted successfully.`);
+      res.sendStatus(200);
+    }
+  });
+});
 
 app.listen(3000, () => {
     console.log("Server started on port 3000");
