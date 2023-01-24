@@ -44,7 +44,13 @@ function postData(data) {
         getDataAndShowInTable();
       });
   } catch (err) {
-    console.log(err);
+    if (err.message === "Conflict") {
+      console.log("Duplicate Error: " + err);
+      let html = "";
+      html += `<p class="text-danger">Duplicate date found!</p>`;
+    } else {
+      console.log("Error: " + err);
+    }
   }
 }
 
@@ -94,13 +100,11 @@ function getDataAndShowInTable() {
 
 function searchRecord() {
   const searchInput = document.getElementById("search");
-  searchValue = searchInput.value;
-  console.log(searchValue);
-  let obj = {};
-  let key = "lastname";
+  const searchTerm = searchInput.value;
+  console.log(searchTerm);
 
   // Use the fetch method to send a GET request to the server
-  fetch(`${BASE_URL}/search?searchTerm=${encodeURIComponent(searchValue)}`, {
+  fetch(`${BASE_URL}/search?searchTerm=${encodeURIComponent(searchTerm)}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -109,10 +113,9 @@ function searchRecord() {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      // Do something with the data
       console.log(data);
       if (data && data.length > 0) {
-        // do something with the data
+        // populate the table data
         let html = "";
         data.forEach((item) => {
           html += `<tr>
@@ -127,30 +130,57 @@ function searchRecord() {
         });
 
         tableDiv.innerHTML = html;
-        //populate form inputs with data
-        if (data && data.length > 0) {
-          // do something with the data
-          id.value = data[0].id;
-          firstname.value = data[0].firstname;
-          lastname.value = data[0].lastname;
-          age.value = data[0].age;
-          dob.value = data[0].dob;
-          countries.value = data[0].countries;
-          gender.value = data[0].gender;
-        }
       } else {
-        id.value = "";
-        firstname.value = "";
-        lastname.value = "";
-        age.value = "";
-        dob.value = "";
-        countries.value = "";
-        gender.value = "";
         console.log("No results found");
         let html = "";
         html += `<p class="text-danger text-centre">No  record found</p>`;
         tableDiv.innerHTML = html;
       }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+//fetch data values from database and append on the select
+const selectedStudent = document.getElementById("selectedValue");
+fetch(`${BASE_URL}`)
+  .then((response) => response.json())
+  .then((data) => {
+    data.forEach((id) => {
+      const option = document.createElement("option");
+      option.value = id.id;
+      option.innerHTML = id.id;
+      option.addEventListener("click", (e) => {
+        e.preventDefault();
+        const selectedOption = option.value;
+        getDataAndpopulateForm(selectedOption);
+      });
+      selectedStudent.appendChild(option);
+    });
+  });
+
+//populate data values on the form controls
+function getDataAndpopulateForm(searchTerm) {
+  console.log(searchTerm);
+  // Use the fetch method to send a GET request to the server
+  fetch(`${BASE_URL}/search?searchTerm=${encodeURIComponent(searchTerm)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      //populate form inputs with data
+      id.value = data[0].id;
+      firstname.value = data[0].firstname;
+      lastname.value = data[0].lastname;
+      age.value = data[0].age;
+      dob.value = data[0].dob;
+      countries.value = data[0].countries;
+      gender.value = data[0].gender;
     })
     .catch((error) => {
       console.error(error);
@@ -181,6 +211,7 @@ function deleteSearchTerm() {
     });
 }
 
+//fetch data values from API and append on the countries
 const selectElement = document.getElementById("countries");
 fetch("https://restcountries.com/v2/all")
   .then((response) => response.json())
@@ -218,6 +249,74 @@ function updateRecord() {
         formMessage.innerHTML = html;
         console.log({ status: "success", data: JSON.stringify(updateData) });
         getDataAndShowInTable();
+      });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function signUp() {
+  //get values from the form controls
+  const signUpFirstname = document.getElementById("signUpFirstname");
+  const signUpLastname = document.getElementById("signUpSecondname");
+  const signUpEmail = document.getElementById("signUpEmail");
+  const signUpPassword = document.getElementById("signUpPassword");
+  const signUpUsername = document.getElementById("signUpUsername");
+  const signUpConfirmPassword = document.getElementById(
+    "signUpConfirmPassword"
+  );
+  const signUpData = {
+    signUpFirstname: signUpFirstname.value,
+    signUpLastname: signUpLastname.value,
+    signUpEmail: signUpEmail.value,
+    signUpUsername: signUpUsername.value,
+    signUpPassword: signUpPassword.value,
+  };
+  if (signUpPassword.value == signUpConfirmPassword.value) {
+    console.log(signUpData);
+    try {
+      fetch(`${BASE_URL}/signUp`, {
+        method: "POST",
+        body: JSON.stringify(signUpData),
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          alert("User sign up successful");
+        });
+    } catch (err) {
+      console.log("Error:" + err);
+    }
+  } else {
+    alert("Passwords do not match");
+  }
+}
+
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  try {
+    fetch(`${BASE_URL}/login?username=${encodeURIComponent(username)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if(data.length>0){
+          if (data[0].username == username) {
+            if (data[0].password == password) {
+              alert("Log in succefully");
+            } else {
+              alert("wrong password");
+            }
+          } else {
+            alert("wrong username");
+          }
+
+        }else{
+          alert("wrong username");
+
+        }
+        
       });
   } catch (err) {
     console.log(err);

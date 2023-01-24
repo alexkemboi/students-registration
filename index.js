@@ -98,25 +98,22 @@ app.get("/", (req, res) => {
 
 //search all users
 app.get("/search", (req, res) => {
-  const fname = req.query.searchTerm;
-  console.log(fname);
-  db.query(
-    `SELECT * FROM studentdetails WHERE firstname='${fname}'`,
-    (err, rows) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.status(200).send(rows);
-        console.log(rows);
-      }
+  const id = req.query.searchTerm;
+  console.log(id);
+  db.query(`SELECT * FROM studentdetails WHERE id='${id}'`, (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send(rows);
+      console.log(rows);
     }
-  );
+  });
 });
 
 app.delete("/delete", (req, res) => {
   const { searchTerm } = req.query;
   db.query(
-    `DELETE FROM studentdetails WHERE firstname= '${searchTerm}'`,
+    `DELETE FROM studentdetails WHERE id= '${searchTerm}'`,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -129,6 +126,7 @@ app.delete("/delete", (req, res) => {
   );
 });
 
+//api to update record in database
 app.post("/update", (req, res) => {
   try {
     const { id, firstname, lastname, age, dob, countries, gender } = req.body;
@@ -148,6 +146,53 @@ app.post("/update", (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.post("/signUp", (req, res) => {
+  try {
+    const {
+      signUpFirstname,
+      signUpLastname,
+      signUpEmail,
+      signUpUsername,
+      signUpPassword,
+    } = req.body;
+    console.log(req.body);
+    db.query(
+      "INSERT INTO users (firstname,lastname,email,username,password) values (?,?,?,?,?)",
+      [
+        signUpFirstname,
+        signUpLastname,
+        signUpEmail,
+        signUpUsername,
+        signUpPassword,
+      ],
+      function (error) {
+        if (error) {
+          console.log(error);
+        } else {
+          res
+            .status(200)
+            .send({ message: "Sign up data inserted succesfully" });
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/login", (req, res) => {
+  const username = req.query.username;
+  console.log(username);
+  db.query(`SELECT * FROM users WHERE username='${username}'`, (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send(rows);
+      console.log(rows);
+    }
+  });
 });
 
 app.listen(3000, () => {

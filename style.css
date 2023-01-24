@@ -32,9 +32,7 @@ table {
     justify-content: center;
     padding: 10px;
 }
-.navbar{
-    background-color: aquamarine;
-}
+
 form{
     padding: 5px;
 }
@@ -59,5 +57,12 @@ label{
     color: blue;
     padding: 10px;
     margin: 5px;
+}
+
+#navbar{  
+    
+    z-index: 999;
+    position: fixed;
+    width: 73%;
 }
 
