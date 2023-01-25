@@ -69,11 +69,11 @@ app.get("/createemployee", (req, res) => {
 
 app.post("/", (req, res) => {
   try {
-    const { id, firstname, lastname, age, dob, countries, gender } = req.body;
+    const { firstname, lastname, dob, countries, gender } = req.body;
 
     db.query(
-      "INSERT INTO studentdetails (id, firstname, lastname, age, dob,countries,gender) values (?, ?, ?, ?, ?,?,?)",
-      [id, firstname, lastname, age, dob, countries, gender],
+      "INSERT INTO studentdetails ( firstname, lastname, dob,countries,gender) values ( ?, ?, ?, ?,?)",
+      [firstname, lastname, dob, countries, gender],
       function (error) {
         if (error) console.log(error);
 
@@ -86,7 +86,7 @@ app.post("/", (req, res) => {
 });
 
 // fetch all users
-app.get("/", (req, res) => {
+app.get("/displayStudents", (req, res) => {
   db.query("SELECT * FROM studentdetails", (err, rows) => {
     if (err) {
       console.log(err);
@@ -100,20 +100,23 @@ app.get("/", (req, res) => {
 app.get("/search", (req, res) => {
   const id = req.query.searchTerm;
   console.log(id);
-  db.query(`SELECT * FROM studentdetails WHERE id='${id}'`, (err, rows) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.status(200).send(rows);
-      console.log(rows);
+  db.query(
+    `SELECT * FROM studentdetails WHERE studentAdmNo='${id}'`,
+    (err, rows) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send(rows);
+        console.log(rows);
+      }
     }
-  });
+  );
 });
 
 app.delete("/delete", (req, res) => {
   const { searchTerm } = req.query;
   db.query(
-    `DELETE FROM studentdetails WHERE id= '${searchTerm}'`,
+    `DELETE FROM studentdetails WHERE studentAdmNo= '${searchTerm}'`,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -129,14 +132,15 @@ app.delete("/delete", (req, res) => {
 //api to update record in database
 app.post("/update", (req, res) => {
   try {
-    const { id, firstname, lastname, age, dob, countries, gender } = req.body;
+    const { studentAdmNo, firstname, lastname, dob, countries, gender } =
+      req.body;
 
     db.query(
       `UPDATE studentdetails 
-      SET firstname='${firstname}', lastname='${lastname}', age='${age}', dob='${dob}',countries='${countries}',gender='${gender}'
-      WHERE id = ${id}
+      SET firstname='${firstname}', lastname='${lastname}', dob='${dob}',countries='${countries}',gender='${gender}'
+      WHERE studentAdmNo = ${studentAdmNo}
       `,
-      [id, firstname, lastname, age, dob, countries, gender],
+      [studentAdmNo, firstname, lastname, dob, countries, gender],
       function (error) {
         if (error) console.log(error);
 

@@ -1,34 +1,26 @@
 let BASE_URL = "http://localhost:3000";
-const btn = document.querySelector("#submitbtn");
+const btn = document.getElementById("submitbtn");
 let tableDiv = document.getElementById("tableData");
 let formMessage = document.getElementById("formMessage");
 let id = document.querySelector("#id");
 let firstname = document.querySelector("#firstname");
 let lastname = document.querySelector("#lastname");
-let age = document.querySelector("#age");
 let dob = document.querySelector("#dob");
 let countries = document.querySelector("#countries");
 let gender = document.querySelector("#gender");
 
-btn.addEventListener("click", (e) => {
-  e.preventDefault();
+function postData() {
   let data = {
     id: id.value,
     firstname: firstname.value,
     lastname: lastname.value,
-    age: age.value,
     dob: dob.value,
     countries: countries.value,
     gender: gender.value,
   };
-
-  postData(data);
-});
-
-function postData(data) {
   console.log(data);
   try {
-    fetch(`${BASE_URL}`, {
+    fetch(`${BASE_URL}/`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -55,7 +47,7 @@ function postData(data) {
 }
 
 function getDataAndShowInTable() {
-  let result = fetch(`${BASE_URL}`)
+  let result = fetch(`${BASE_URL}/displayStudents`)
     .then((res) => res.json())
     .then((data) => {
       let currentPage = 1;
@@ -69,10 +61,9 @@ function getDataAndShowInTable() {
         let html = "";
         currentData.forEach((item) => {
           html += `<tr>
-			<td>${item.id}</td>
+			<td>${item.studentAdmNo}</td>
 			<td>${item.firstname}</td>
 			<td>${item.lastname}</td>
-			<td>${item.age}</td>
 			<td>${item.dob}</td>
 			<td>${item.countries}</td>			
 			<td>${item.gender}</td>
@@ -80,7 +71,6 @@ function getDataAndShowInTable() {
         });
         // insert the generated html into the appropriate element
         tableDiv.innerHTML = html;
-
         let totalPages = Math.ceil(data.length / pageSize);
         for (let i = 1; i <= totalPages; i++) {
           let button = document.createElement("button");
@@ -119,10 +109,9 @@ function searchRecord() {
         let html = "";
         data.forEach((item) => {
           html += `<tr>
-			<td>${item.id}</td>
+			<td>${item.studentAdmNo}</td>
 			<td>${item.firstname}</td>
 			<td>${item.lastname}</td>
-			<td>${item.age}</td>
 			<td>${item.dob}</td>
 			<td>${item.countries}</td>			
 			<td>${item.gender}</td>
@@ -141,24 +130,25 @@ function searchRecord() {
       console.error(error);
     });
 }
-
-//fetch data values from database and append on the select
-const selectedStudent = document.getElementById("selectedValue");
-fetch(`${BASE_URL}`)
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((id) => {
-      const option = document.createElement("option");
-      option.value = id.id;
-      option.innerHTML = id.id;
-      option.addEventListener("click", (e) => {
-        e.preventDefault();
-        const selectedOption = option.value;
-        getDataAndpopulateForm(selectedOption);
+function selectStudent() {
+  //fetch data values from database and append on the select
+  const selectedStudent = document.getElementById("selectedValue");
+  fetch(`${BASE_URL}/displayStudents`)
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((id) => {
+        const option = document.createElement("option");
+        option.value = id.studentAdmNo;
+        option.innerHTML = id.studentAdmNo;
+        option.addEventListener("click", (e) => {
+          e.preventDefault();
+          const selectedOption = option.value;
+          getDataAndpopulateForm(selectedOption);
+        });
+        selectedStudent.appendChild(option);
       });
-      selectedStudent.appendChild(option);
     });
-  });
+}
 
 //populate data values on the form controls
 function getDataAndpopulateForm(searchTerm) {
@@ -174,10 +164,9 @@ function getDataAndpopulateForm(searchTerm) {
     .then((data) => {
       console.log(data);
       //populate form inputs with data
-      id.value = data[0].id;
+      id.value = data[0].studentAdmNo;
       firstname.value = data[0].firstname;
       lastname.value = data[0].lastname;
-      age.value = data[0].age;
       dob.value = data[0].dob;
       countries.value = data[0].countries;
       gender.value = data[0].gender;
@@ -188,9 +177,9 @@ function getDataAndpopulateForm(searchTerm) {
 }
 
 function deleteSearchTerm() {
-  const searchValue = document.getElementById("search").value;
+  const selectedStudent = document.getElementById("selectedValue").value;
   // Use the fetch method to send a DELETE request to the server
-  fetch(`${BASE_URL}/delete?searchTerm=${searchValue}`, {
+  fetch(`${BASE_URL}/delete?searchTerm=${selectedStudent}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -201,7 +190,7 @@ function deleteSearchTerm() {
         console.log("Search term deleted successfully!");
         let html = "";
         html += `<p class="text-success">Search term deleted successfully!</p>`;
-        tableDiv.innerHTML = html;
+        formMessage.innerHTML = html;
       } else {
         console.log("Error deleting search term: ", response.status);
       }
@@ -226,10 +215,9 @@ fetch("https://restcountries.com/v2/all")
 
 function updateRecord() {
   let updateData = {
-    id: id.value,
+    studentAdmNo: id.value,
     firstname: firstname.value,
     lastname: lastname.value,
-    age: age.value,
     dob: dob.value,
     countries: countries.value,
     gender: gender.value,
@@ -301,7 +289,7 @@ function login() {
     fetch(`${BASE_URL}/login?username=${encodeURIComponent(username)}`)
       .then((response) => response.json())
       .then((data) => {
-        if(data.length>0){
+        if (data.length > 0) {
           if (data[0].username == username) {
             if (data[0].password == password) {
               alert("Log in succefully");
@@ -311,16 +299,34 @@ function login() {
           } else {
             alert("wrong username");
           }
-
-        }else{
+        } else {
           alert("wrong username");
-
         }
-        
       });
   } catch (err) {
     console.log(err);
   }
+}
+
+function showMarkSheet() {
+  const classList = document.getElementById("classList");
+  fetch(`${BASE_URL}/displayStudents`)
+    .then((res) => res.json())
+    .then((data) => {
+      let html = "";
+      data.forEach((item) => {
+        html +=
+          `<tr>
+			<td class="table-border">${item.studentAdmNo}</td>
+			<td class="table-border">${item.firstname}` +
+          "  " +
+          `${item.lastname}</td>
+			<td class="table-border"><input type="number" class="col-12 d-flex w-100"></td>
+			</tr>	`;
+      });
+      // insert the generated html into the appropriate element
+      classList.innerHTML = html;
+    });
 }
 
 getDataAndShowInTable();

@@ -14,10 +14,11 @@
 
 </head>
 <body>
-   
-<div class="container my-custom-class">      
-                <!-- Navbar componenet -->    
-          <nav class="navbar navbar-expand navbar-fixed-top bg-primary" id="navbar">
+  <div class="container my-custom-class border border-blue-1-solid border-left border-right">
+    <div class="row">
+      <div class="col-12">
+                    <!-- Navbar componenet --> 
+          <nav class="navbar navbar-expand navbar-fixed-top bg-primary "  id="navbar">
             <a class="navbar-brand text-white" href="#">RegApp</a>
             <button
               class="navbar-toggler"
@@ -37,14 +38,19 @@
                     >Home <span class="sr-only">(current)</span></a
                   >
                 </li>
+
                 <li class="nav-item ml-auto" >
-                  <a class="nav-link text-white ml-auto" href="#tabledata">Students</a>
+                                     <!-- Button that triggers the teacher registration modal -->
+                  <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#teacherModal">
+                    Teachers
+                  </button>
                 </li>
+
                 <li class="nav-item ml-auto">
                     <!-- Button that triggers the register modal -->
                     <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#myModal">
-                        Register
-                      </button>
+                        Student
+                    </button>
                 </li>
                 <li class="nav-item ml-auto">
                   <!-- Button that triggers the exams modal -->
@@ -52,11 +58,7 @@
                       Exams
                     </button>
               </li>
-
-
-
-
-                <li class="nav-item ml-auto">
+              <li class="nav-item ml-auto">
                   <!-- Button that triggers the modal -->
                     <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#login">
                             Login
@@ -65,55 +67,155 @@
               </ul>
             </div>
           </nav>
+        </div>
+    </div>
+        
 
 
-
-
-
-
-
-  
-         <!-- Student table data component --> 
-         <section id="tabledata">
+        
+        
+        
+  <div class="row " >
+    <div class="col-12">
+               <!-- Student table data component --> 
+      <section id="tabledata" class="container my-custom-class " >        
           <div class=" row ">
-          <div class="col-6 ml-auto"> 
-            
-            <h2 class="tableTitle text-blue">Registered Students</h2> 
+            <div class="d-flex align-items-center justify-content-center col-12">
+                <h2 class="tableTitle text-blue ">Registered Students</h2>
+            </div> 
+          </div>
+          <div class="container">
+            <div class="row">
+              <div  class="d-flex align-items-center justify-content-center col-10" >
+                  <input type="text" id="search" placeholder="Search student" class="form-control">  
+              </div>
+              <div class="col-2">
+                  <button class="form-control btn btn-primary btn-sm" id="searchbtn" onclick="searchRecord()" >search</button>
+              </div>
+            </div>
 
           </div>
-          </div>
-          <div class="row d-flex w-100 table-responsive table-bordered">
+         
+        
+        <div class="row d-flex w-100 table-responsive table-bordered">
+          <div class="col-12">
             <table id="students" border="1" class="table table-dark">
-               <div class="search" class="row ml-auto">
-                    <input type="text" id="search" placeholder="Search student" class="form-control col-12">
-                          
-                    <button class="form-control btn btn-primary" id="searchbtn" onclick="searchRecord()" >search</button>
-                    <button class="form-control btn btn-danger" onclick="deleteSearchTerm()"  > delete</button>
-                </div>
-                
-                                   
               <thead>
-               <tr>
-                   <th>id</th>
-                   <th>firstname</th>
-                   <th>secondname</th>
-                   <th>age</th>
-                   <th>dob</th>
-                   <th>countries</th>
-                   <th>gender</th>
-               </tr>
-               </thead>
-               <tbody id="tableData">
-               </tbody>
-               <p id="noRecord"></p>
-           
-           </table>
+                 <tr>
+                     <th>Id</th>
+                     <th>Firstname</th>
+                     <th>Secondname</th>
+                     <th>Date Of Birth</th>
+                     <th>Countries</th>
+                     <th>Gender</th>
+                 </tr>
+                </thead>
+                <tbody id="tableData">
+                  <p id="noRecord"></p>
+                </tbody>              
+            </table>
+
           </div>
-       </section>
-   
-   
-   
-   
+          <p id="buttonDiv"></p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+       <!-- About componenet --> 
+     <section id="home">
+      <div>
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-4">
+                  <div class="card">
+                      <img src="featured1.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title">Featured Content 1</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Learn More</a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="card">
+                      <img src="featured2.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title">Featured Content 2</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Learn More</a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="card">
+                      <img src="featured1.jpg" class="card-img">            
+                       <div class="card-body">
+                          <h5 class="card-title">Featured Content 3</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Learn More</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+
+    
+
+<div class="row">
+  <div class="col-12">
+    <!-- footer component-->
+    <footer class="bg-primary" id="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4">
+            <h4 class="text-center text-black">About Us</h4>
+            <p class="text-center text-white" >Student registration system for kenyan schools</p>
+            <ul class="navbar-nav" class="text-center">
+              <li class="nav-item active">
+                <a class="nav-link text-white text-center" href="#home"
+                  >Home <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white text-center" href="#tabledata">Students</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white text-center" href="#register">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white text-center " href="openModal()" >Login</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-4">
+            <h4 class="text-center text-black">Contact Us</h4>
+            <p class="text-center text-white">Email: alexkemboi97@gmail.com</p>
+            <p class="text-center text-white">Phone: 0726837210</p>
+            <p class="text-center text-white">Address: P.o Box 86-30102</p>
+            <p class="text-center text-white">town: Nairobi</p>
+          </div>
+          <div class="col-4">
+            <h4 class="text-center text-black">Follow Us</h4>
+            <p class="text-center  text-white">Facebook</p>
+            <p class="text-center text-white">Twitter</p>
+            <p class="text-center text-white">Instagram</p>              
+            <p class="text-center text-white">Linkdin</p>              
+            <p class="text-center text-white" >Github</p>
+          </div>
+        </div>
+        <p class="text-center  text-black">Copyright © Your Website 2023</p>
+      </div>
+    </footer>
+  </div>
+</div>
+
 
 
 
@@ -130,17 +232,17 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body">          
-    <!-- log in componenet-->
-    <section id="login">
-              <div class="row d-flex align-items-center justify-content-center">                
-                      <label for="usernamer">Username</label>
-                      <input id="username" class="form-control col-6" type="text" required placeholder="Enter username">
-              </div>
-              <div class="row d-flex align-items-center justify-content-center">  
-                      <label for="password">Password</label>
-                      <input id="password" class="form-control col-6" type="password" required placeholder="password">
-              </div>   
-      </section>
+          <!-- log in componenet-->
+        <section id="login">
+                  <div class="row d-flex align-items-center justify-content-center">                
+                          <label for="usernamer">Username</label>
+                          <input id="username" class="form-control col-6" type="text" required placeholder="Enter username">
+                  </div>
+                  <div class="row d-flex align-items-center justify-content-center">  
+                          <label for="password">Password</label>
+                          <input id="password" class="form-control col-6" type="password" required placeholder="password">
+                  </div>   
+        </section>  
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -149,9 +251,9 @@
           <!-- Button that triggers the signup modal -->
           <button type="button" class="btn btn-secondary btn-sm mt-3 mb-2" data-toggle="modal" data-target="#signup">
               Sign up
-            </button>
+          </button>
         </div>
-      </div>
+     </div>
     </div>
   </div>
   
@@ -221,166 +323,12 @@
   
 
 
-
-
-
-
-
-    
+  
         
 
 
 
 
-         <!-- About componenet --> 
-  <section id="home">
-    <div class="card border-primary">
-        <div class="container">
-          <div class="row">
-              <div class="col-lg-4">
-                  <div class="card">
-                      <img src="featured1.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                          <h5 class="card-title">Featured Content 1</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Learn More</a>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                  <div class="card">
-                      <img src="featured2.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                          <h5 class="card-title">Featured Content 2</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Learn More</a>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                  <div class="card">
-                      <img src="featured1.jpg" class="card-img">            
-                       <div class="card-body">
-                          <h5 class="card-title">Featured Content 3</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Learn More</a>
-                      </div>
-                  </div>
-              </div>
-  </section>
-
-
-
-  
-         
-
-
-
-
-
-
-  
-            <!-- Student registration Modal -->
-            <div class="modal fade" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <!-- Modal header -->
-                  <div class="modal-header">
-                  <h5 class="modal-title">Student Registration</h5>
-                    <button type="button" class="close " data-dismiss="modal">&times;</button>
-                  </div>
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                      <!-- registration form --> 
-                            <section  id="register">    
-                                <div class="container">
-                                  <form class="  card border-secondary form-group form-inline col-12" id="formId">
-                                    
-                                    <h3 class="text-center"id="formMessage"></h3>
-                                    <div class="row">
-                                      <div class="col-4"> 
-                                        <select class="form-control" id="selectedValue">
-
-                                      </select> 
-                                    </div>
-                                      <div class="col-4">
-                                        <button  class=" form-control btn btn-danger" type="reset"> New</button>
-                                        </div>
-                                      <div class="col-4"> 
-                                        <button class="form-control btn btn-primary" id="searchbtn"  >Edit</button>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-3">
-                                        <label for="id">Id</label>
-                                        <input class="form-control" type="text" id="id" readonly>
-                                      </div>   
-                                      
-                                    </div> 
-
-                                          
-                                    <div class="row"> 
-                                      <div class="col-6">
-                                         <label for="firstnameinput">Firstname</label>
-                                         <input class="form-control " type="text" id="firstname">
-                                       </div>
-
-                                       <div class="col-6">
-                                         <label for="lastname">lastname</label>
-                                         <input class="form-control" type="text" id="lastname">
-                                       </div>
-                                 </div>
-
-
-                                 <div class="row">
-                                  <div class="col-6 text-left">
-                                    <label for="age">Age</label>
-                                    <input class="form-control" type="number" id="age">
-                                  </div>
-
-                                  <div class="col-6">
-                                    <label for="dob">Dob</label>
-                                    <input class="form-control" type="date" id="dob">
-                                  </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-6">
-                                  <label for="gender">Gender</label>
-                                      <select class="form-control" id="gender">
-                                                <option value="Male" class="text-black">Male</option>
-                                                <option value="Female" class="text-black">Female</option>
-                                      </select>
-                                  
-                                </div>
-                              </div> 
-                              
-                                
-                                <label for="Countries">Countries</label>
-                                <select class="form-control" id="countries"></select>  
-                              
-
-
-                                  </form>        
-                            </section>  
-                    </div>
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button  class="btn btn-primary btn-sm mt-3 mb-2" type="submit"id="submitbtn">submit</button>
-                    <button type="button" class="btn btn-secondary btn-sm mt-3 mb-2" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-sm mt-3 mb-2" onclick="updateRecord()">Update changes</button>
-                  </div>      
-              </div> 
-            </div>  
-
-
-
-
-
-
-    </div>
-
-    
 
 <!-- Exams entry Modal -->
 <div class="modal fade" id="examModal">
@@ -399,20 +347,34 @@
                           <div class="col-3">
                           
                             <label class=""for="examType">Exam</label>
-                            <select class="select-primary"name="examType" id="examType"></select>
+                            <select class="select-primary"name="examType" id="examType">
+                              
+                            <option value="1" onclick="showMarkSheet()">Cat 1</option> 
+                            <option value="1" onclick="showMarkSheet()">Cat 2</option> 
+                            <option value="1" onclick="showMarkSheet()">End Term</option> 
+                            </select>
   
                           </div>
   
                           <div class="col-3">
                             
                             <label class=""for="class">Class</label>
-                            <select class="select-primary"name="class" id="class"></select>
+                            <select class="select-primary"name="class" id="class">                              
+                                <option value="1" onclick="showMarkSheet()">One</option> 
+                                <option value="1" onclick="showMarkSheet()">Two</option> 
+                                <option value="1" onclick="showMarkSheet()">Three</option> 
+                                <option value="1" onclick="showMarkSheet()">Four</option>
+                            </select>
   
                           </div>
   
                           <div class="col-3">
                           <label class=""for="stream">Stream</label>
-                          <select class="select-primary" name="stream" id="stream">                       
+                          <select class="select-primary" name="stream" id="stream">  
+                            <option value="1" onclick="showMarkSheet()">Red</option> 
+                            <option value="1" onclick="showMarkSheet()">Green</option> 
+                            <option value="1" onclick="showMarkSheet()">Blue</option> 
+                            <option value="1" onclick="showMarkSheet()">Yellow</option>                     
                            </select>
   
                           </div>
@@ -420,6 +382,10 @@
                             <label class=""for="subject">Subject</label>
                             <select class="select-primary"name="subject" id="subject">
                               
+                            <option value="1" onclick="showMarkSheet()">English</option> 
+                            <option value="1" onclick="showMarkSheet()">Kiswahili</option> 
+                            <option value="1" onclick="showMarkSheet()">Maths</option> 
+                            <option value="1" onclick="showMarkSheet()">Science</option> 
                             </select>
   
                           </div>          
@@ -429,13 +395,18 @@
 
                       </form> 
                       <div class="row d-flex w-100 table-responsive">
-                        <table class="table table-dark" >                          
-                          <th class="table-hover table-bordered ">Adm No</th>
-                          <th class="table-hover table-bordered  ">Name</th>
-                          <th class="table-hover table-bordered ">Score</th>
-                        </table> 
-
-                      </div>                                 
+                        <div class="col-12">
+                          <table class="table table-light" >
+                            <th class="table-hover table-dark ">Adm No</th>
+                            <th class="table-hover table-dark ">Name</th>
+                            <th class="table-hover table-dark">Score</th>
+                            <tbody class="table-hover table-dark" id="classList">
+  
+                            </tbody>
+                          </table> 
+                        </div>
+                        
+                       </div>                                 
                   </div>
                   <!-- Modal footer -->
                   <div class="modal-footer">
@@ -450,50 +421,228 @@
 
 
 
-      
-      <!-- footer component-->
-      <footer class="bg-primary" id="footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-4">
-              <h4 class="text-center text-black">About Us</h4>
-              <p class="text-center text-white" >Student registration system for kenyan schools</p>
-              <ul class="navbar-nav" class="text-center">
-                <li class="nav-item active">
-                  <a class="nav-link text-white text-center" href="#home"
-                    >Home <span class="sr-only">(current)</span></a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white text-center" href="#tabledata">Students</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white text-center" href="#register">Register</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white text-center " href="openModal()" >Login</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-4">
-              <h4 class="text-center text-black">Contact Us</h4>
-              <p class="text-center text-white">Email: alexkemboi97@gmail.com</p>
-              <p class="text-center text-white">Phone: 0726837210</p>
-              <p class="text-center text-white">Address: P.o Box 86-30102</p>
-              <p class="text-center text-white">town: Nairobi</p>
-            </div>
-            <div class="col-4">
-              <h4 class="text-center text-black">Follow Us</h4>
-              <p class="text-center  text-white">Facebook</p>
-              <p class="text-center text-white">Twitter</p>
-              <p class="text-center text-white">Instagram</p>              
-              <p class="text-center text-white">Linkdin</p>              
-              <p class="text-center text-white" >Github</p>
-            </div>
+
+
+   <!-- Student registration Modal -->
+            <div class="modal fade" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <!-- Modal header -->
+                  <div class="modal-header">
+                  <h5 class="modal-title">Student Registration</h5>
+                    <button type="button" class="close " data-dismiss="modal">&times;</button>
+                  </div>
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                      <!-- registration form --> 
+                            <section  id="register">    
+                                <div class="container my-custom-class">
+                                  <form class=" border-secondary" id="formId">                                    
+                                    <h3 class="text-center"id="formMessage"></h3>
+                                    <div class="row">
+
+                                      <div class="col-3"> 
+                                        <button class="form-control btn btn-primary" id="searchbtn" onclick="selectStudent()"  >Edit</button>
+                                      </div>
+
+
+                                      <div class="col-3"> 
+                                        <select class="form-control" id="selectedValue"></select> 
+                                      </div>
+
+
+                                      <div class="col-3">
+                                        <button  class=" form-control btn btn-success" type="reset"> New</button>
+                                      </div>
+                                      
+                                      <div class="col-3">
+                                          <button class="form-control btn btn-danger" onclick="deleteSearchTerm()"  > delete</button>
+                                      </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <label for="id">Admission Number</label>
+                                        <input class="form-control" type="text" id="id" readonly>
+                                      </div>   
+                                      
+                                    </div> 
+
+                                          
+                                    <div class="row"> 
+                                      <div class="col-6">
+                                         <label for="firstnameinput">Firstname</label>
+                                         <input class="form-control " type="text" id="firstname">
+                                       </div>
+
+                                       <div class="col-6">
+                                         <label for="lastname">lastname</label>
+                                         <input class="form-control" type="text" id="lastname">
+                                       </div>
+                                     </div>
+
+
+                                 <div class="row">
+
+                                          <div class="col-6">
+                                            <label for="dob">Dob</label>
+                                            <input class="form-control" type="date" id="dob">
+                                          </div>
+                                   </div>
+
+                                    <div class="row">
+                                            <div class="col-12">
+                                              <label for="gender">Gender</label>
+                                                  <select class="form-control" id="gender">
+                                                            <option value="Male" class="text-black">Male</option>
+                                                            <option value="Female" class="text-black">Female</option>
+                                                  </select>
+                                              
+                                            </div>
+                                    </div> 
+                                    
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <label for="Countries">Countries</label>
+                                          <select class="form-control" id="countries"></select> 
+                                        </div>
+                                      </div>
+                              </form> 
+                           </div>
+                      </section>  
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button  class="btn btn-primary btn-sm mt-3 mb-2" onclick="postData()" id="submitbtn">submit</button>
+                    <button type="button" class="btn btn-danger btn-sm mt-3 mb-2" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success btn-sm mt-3 mb-2" onclick="updateRecord()">Update changes</button>
+                  </div>      
+              </div> 
+            </div>  
+           </div>
           </div>
-          <p class="text-center  text-black">Copyright © Your Website 2023</p>
-        </div>
-      </footer>
+
+
+
+
+    <!-- Teacher registration Modal -->
+    <div class="modal fade" id="teacherModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal header -->
+          <div class="modal-header">
+          <h5 class="modal-title">Teacher Registration</h5>
+            <button type="button" class="close " data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              <!-- registration form --> 
+                    <section  id="register">    
+                        <div class="container my-custom-class">
+                          <form class=" border-secondary" id="formId">                                    
+                            <h3 class="text-center"id="formMessage"></h3>
+                            <div class="row">
+
+                              <div class="col-3"> 
+                                <button class="form-control btn btn-primary" id="searchbtn" onclick="selectTeacher()"  >Edit</button>
+                              </div>
+
+
+                              <div class="col-3"> 
+                                <select class="form-control" id="selectedValue"></select> 
+                              </div>
+
+
+                              <div class="col-3">
+                                <button  class=" form-control btn btn-success" type="reset"> New</button>
+                              </div>
+                              
+                              <div class="col-3">
+                                  <button class="form-control btn btn-danger" onclick="deleteSearchTerm()"  > delete</button>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-12">
+                                <label for="id">Tsc No</label>
+                                <input class="form-control" type="text" id="id" readonly>
+                              </div>   
+                              
+                            </div> 
+
+                                  
+                            <div class="row"> 
+                              <div class="col-6">
+                                 <label for="firstnameinput">Firstname</label>
+                                 <input class="form-control " type="text" id="firstname">
+                               </div>
+
+                               <div class="col-6">
+                                 <label for="lastname">Lastname</label>
+                                 <input class="form-control" type="text" id="lastname">
+                               </div>
+                             </div>
+
+
+                         <div class="row">
+                                  <div class="col-6 ">
+                                    <label for="age">Contacts</label>
+                                    <input class="form-control" type="number" id="age">
+                                  </div>
+
+                                  <div class="col-6">
+                                    <label for="dob">Dob</label>
+                                    <input class="form-control" type="date" id="dob">
+                                  </div>
+                           </div>
+
+                            <div class="row">
+                                    <div class="col-4">
+                                      <label for="gender">Gender</label>
+                                          <select class="form-control" id="gender">
+                                                    <option value="Male" class="text-black">Male</option>
+                                                    <option value="Female" class="text-black">Female</option>
+                                          </select>
+                                      
+                                    </div>
+                                    <div class="col-4">
+                                          <label for="gender">Subject 1</label>
+                                          <select class="form-control" id="gender">
+                                                    <option value="Male" class="text-black">English</option>
+                                                    <option value="Female" class="text-black">Kiswahili</option>
+                                          </select>                                      
+                                    </div>
+
+                                    <div class="col-4">
+                                      <label for="gender">Subject 2</label>
+                                      <select class="form-control" id="gender">
+                                                <option value="Male" class="text-black">English</option>
+                                                <option value="Female" class="text-black">Kiswahili</option>
+                                      </select>                                      
+                                </div>
+                            </div> 
+                            
+                              <div class="row">
+                                <div class="col-12">
+                                  <label for="Countries">Country of birth</label>
+                                  <select class="form-control" id="countries"></select> 
+                                </div>
+                              </div>
+                      </form> 
+                   </div>
+              </section>  
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button  class="btn btn-primary btn-sm mt-3 mb-2" onclick="postTearcherData()" id="submitbtn">submit</button>
+            <button type="button" class="btn btn-danger btn-sm mt-3 mb-2" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success btn-sm mt-3 mb-2" onclick="updateTeacherRecord()">Update changes</button>
+          </div>      
+      </div> 
+    </div>  
+   </div>
+  </div>
+
+      
+      
 
     <script src="app.js"></script>
     
